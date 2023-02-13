@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="address">Address</label>
+        <input id="address" type="text">
+    </div>
+    <div>
+        <label for="latitude">Latitude</label>
+        <input type="text" id="latitude" name="latitude" formControlName="latitude">
+
+        <div>
+            <label for="longitude">Longitude</label>
+            <input type="text" id="longitude" name="longitude" formControlName="longitude">
+        </div>
+    </div>
+    <button 
+        id="uploadBtn" 
+        name="uploadBtn" 
+        type="submit" 
+        [disabled]="form.invalid">
+        Upload
+    </button>
+</form>

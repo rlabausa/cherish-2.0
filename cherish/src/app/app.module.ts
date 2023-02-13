@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UploadComponent } from './upload/upload.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MapComponent,
     NavbarComponent,
     AboutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule, 
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
