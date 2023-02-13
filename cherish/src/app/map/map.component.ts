@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { tileLayer, map, Map, LatLngExpression } from 'leaflet';
+import { tileLayer, map, Map, LatLngExpression, Icon } from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
 @Component({
@@ -13,6 +13,11 @@ export class MapComponent implements AfterViewInit {
   private readonly DEFAULT_MAP_MIN_ZOOM = 3;
   private readonly DEFAULT_MAP_ZOOM = 14;
   private readonly DEFAULT_MAP_CENTER: LatLngExpression = [15.1850, 145.7467];
+  private readonly DEFAULT_MARKER_ICON = new Icon({
+    // iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png'
+    iconUrl: '/assets/img/marker.svg',
+    iconSize: [32, 32]
+  })
 
   private map!: Map;
   readonly MAP_HTML_ID = 'map';
@@ -51,6 +56,10 @@ export class MapComponent implements AfterViewInit {
     //@ts-ignore
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
+      marker: {
+        icon: this.DEFAULT_MARKER_ICON,
+        draggable: false
+      },
       style: 'bar'
     });
 
@@ -65,15 +74,6 @@ export class MapComponent implements AfterViewInit {
     });
 
     tiles.addTo(this.map);
-
-    // //@ts-ignore
-    // const search = new GeoSearch.GeoSearchControl({
-    //   provider: new GeoSearch.OpenStreetMapProvider(),
-    //   style: 'bar'
-    // });
-
-    // this.map.addControl(search);
-
   }
 
 }
