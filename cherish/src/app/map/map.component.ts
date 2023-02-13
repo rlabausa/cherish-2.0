@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { tileLayer, map, Map, LatLngExpression } from 'leaflet';
+import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
 @Component({
   selector: 'app-map',
@@ -47,7 +48,15 @@ export class MapComponent implements AfterViewInit {
     maxZoom: number = this.DEFAULT_MAP_MAX_ZOOM,
     attribution: string = this.ATTRIBUTION
   ) {
-    this.map = map(mapId).setView(mapCenter, zoomLevel);
+    //@ts-ignore
+    const search = new GeoSearch.GeoSearchControl({
+      provider: new GeoSearch.OpenStreetMapProvider(),
+      style: 'bar'
+    });
+
+    this.map = map(mapId)
+      .setView(mapCenter, zoomLevel)
+      .addControl(search);
 
     const tiles = tileLayer(environment.tileUrl, {
       maxZoom: maxZoom,
@@ -56,6 +65,15 @@ export class MapComponent implements AfterViewInit {
     });
 
     tiles.addTo(this.map);
+
+    // //@ts-ignore
+    // const search = new GeoSearch.GeoSearchControl({
+    //   provider: new GeoSearch.OpenStreetMapProvider(),
+    //   style: 'bar'
+    // });
+
+    // this.map.addControl(search);
+
   }
 
 }
