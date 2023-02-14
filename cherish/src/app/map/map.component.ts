@@ -2,16 +2,17 @@ import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/
 import { tileLayer, map, Map, LatLngExpression, Icon } from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
+import { GeoSearchEvent, GeoSearchResult, MarkerDragResult } from '../models/leaflet-geosearch.model';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
-  @Input() showMarkerOnSearch: boolean = true;
-  @Input() allowDraggableMarker: boolean = false;
-  @Output() searchResultSelected: EventEmitter<any> = new EventEmitter<any>();
-  @Output() markerDragged: EventEmitter<any> = new EventEmitter<any>();
+  @Input() showMarkerOnSearch = true;
+  @Input() allowDraggableMarker = false;
+  @Output() locationSelected: EventEmitter<GeoSearchResult> = new EventEmitter<GeoSearchResult>();
+  @Output() markerDragged: EventEmitter<MarkerDragResult> = new EventEmitter<MarkerDragResult>();
 
   private readonly ATTRIBUTION = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   private readonly DEFAULT_MAP_MAX_ZOOM = 18;
@@ -50,16 +51,14 @@ export class MapComponent implements AfterViewInit {
     this.drawMap();
   }
 
-  //@ts-ignore
-  handleMarkerDrag(event: any) {
-    console.log(event)
-    this.markerDragged.emit(event);
+  handleMarkerDrag(result: MarkerDragResult) {
+    console.log(result)
+    this.markerDragged.emit(result);
   }
 
-  //@ts-ignore
-  handleLocationSelection(event: any) {
-    console.log(event)
-    this.searchResultSelected.emit(event);
+  handleLocationSelection(result: GeoSearchResult) {
+    console.log(result)
+    this.locationSelected.emit(result);
   }
 
   drawMap(
@@ -72,6 +71,7 @@ export class MapComponent implements AfterViewInit {
     allowDraggableMarker: boolean = this.allowDraggableMarker,
     attribution: string = this.ATTRIBUTION
   ) {
+
     //@ts-ignore
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
@@ -95,8 +95,8 @@ export class MapComponent implements AfterViewInit {
 
     tiles.addTo(this.map);
 
-    this.map.on('geosearch/showlocation', this.handleLocationSelection.bind(this));
-    this.map.on('geosearch/marker/dragend', this.handleMarkerDrag.bind(this));
+    this.map.on(GeoSearchEvent.ShowLocation, this.handleLocationSelection.bind(this));
+    this.map.on(GeoSearchEvent.DragEnd, this.handleMarkerDrag.bind(this));
 
   }
 
