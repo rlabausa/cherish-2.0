@@ -9,8 +9,9 @@ import { GeoSearchEvent, GeoSearchResult, MarkerDragResult } from '../models/lea
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
-  @Input() showMarkerOnSearch = true;
   @Input() allowDraggableMarker = false;
+  @Input() showMarkerOnSearch = true;
+  @Input() showPopUpWithLocation = true;
   @Output() locationSelected: EventEmitter<GeoSearchResult> = new EventEmitter<GeoSearchResult>();
   @Output() markerDragged: EventEmitter<MarkerDragResult> = new EventEmitter<MarkerDragResult>();
 
@@ -69,6 +70,7 @@ export class MapComponent implements AfterViewInit {
     maxZoom: number = this.DEFAULT_MAP_MAX_ZOOM,
     showMarkerOnSearch: boolean = this.showMarkerOnSearch,
     allowDraggableMarker: boolean = this.allowDraggableMarker,
+    showPopUpWithLocation: boolean = this.showPopUpWithLocation,
     attribution: string = this.ATTRIBUTION
   ) {
 
@@ -76,6 +78,7 @@ export class MapComponent implements AfterViewInit {
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
       showMarker: showMarkerOnSearch,
+      showPopUp: showPopUpWithLocation,
       marker: {
         icon: this.DEFAULT_MARKER_ICON,
         draggable: allowDraggableMarker
