@@ -1,11 +1,13 @@
-<app-map 
-    [allowDraggableMarker]="true" 
-    [showMarkerOnSearch]="true" 
-    [showPopUpWithLocation]="false"
-    (locationSelected)="onLocationSelected($event)"
-    (markerDragged)="onMarkerDrag($event)"
->
-</app-map>
+<div class="map-container">
+    <app-map 
+        [allowDraggableMarker]="true" 
+        [showMarkerOnSearch]="true" 
+        [showPopUpWithLocation]="false"
+        (locationSelected)="onLocationSelected($event)"
+        (markerDragged)="onMarkerDrag($event)"
+    >
+    </app-map>
+</div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
@@ -16,6 +18,26 @@
             <label for="longitude">Longitude</label>
             <input type="text" id="longitude" name="longitude" formControlName="longitude">
         </div>
+    </div>
+    <div>
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" type="text">
+    </div>
+    <div>
+        <label for="locationTitle">Location</label>
+        <input id="locationTitle" formControlName="locationTitle" type="text">
+    </div>
+    <div>
+        <input 
+            type="file" 
+            id="image" 
+            formControlName="image" 
+            name="image"
+            accept="image/png, image/jpeg"
+            >
+    </div>
+    <div>
+        <textarea id="body" name="body" formControlName="body" cols="30" rows="10"></textarea>
     </div>
     <button 
         id="uploadBtn" 

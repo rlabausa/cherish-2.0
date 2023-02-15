@@ -9,8 +9,13 @@ import { GeoSearchResult, MarkerDragResult } from '../models/leaflet-geosearch.m
 })
 export class UploadComponent implements OnInit {
   form: FormGroup = this.fb.group({
+    author: ['', Validators.required],
+    locationTitle: ['', Validators.required],
     latitude: ['', Validators.required],
-    longitude: ['', Validators.required]
+    longitude: ['', Validators.required],
+    title: ['', Validators.required],
+    body: ['', Validators.required],
+    image: ['', Validators.required]
   });
 
   get latitude() {
@@ -26,8 +31,7 @@ export class UploadComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //TODO
-    console.log('INIT')
+
   }
 
   onSubmit() {
