@@ -13,12 +13,14 @@
     <section>
         <div id="lat-long-search">
             <div id="lat-long-inputs">
-                <label for="latitude">
-                    Latitude:
-                    <strong><abbr title="required" aria-label="required">*</abbr></strong>
-                </label>
-                <input type="text" id="latitude" name="latitude" formControlName="latitude">
-    
+               <div>
+                    <label for="latitude">
+                        Latitude:
+                        <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                    </label>
+                    <input type="text" id="latitude" name="latitude" formControlName="latitude">
+               </div>
+
                 <div>
                     <label for="longitude">
                         Longitude:
@@ -33,7 +35,7 @@
         </div>
         <div>
             <label for="title">
-                Title:
+                Post Title:
                 <strong><abbr title="required" aria-label="required">*</abbr></strong>
             </label>
             <input id="title" formControlName="title" type="text">
@@ -44,6 +46,13 @@
                 <strong><abbr title="required" aria-label="required">*</abbr></strong>
             </label>
             <input id="locationTitle" formControlName="locationTitle" type="text">
+        </div>
+        <div>
+            <label for="author">
+                Author:
+                <strong><abbr title="required" aria-label="required">*</abbr></strong>
+            </label>
+            <input id="author" name="author" formControlName="author" type="text">
         </div>
         <div>
             <label for="image">
