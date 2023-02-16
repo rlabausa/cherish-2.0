@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GeoSearchResult, MarkerDragResult } from '../models/leaflet-geosearch.model';
+import { GeocoderService } from '../services/geocoder.service';
 
 @Component({
   selector: 'app-upload',
@@ -27,7 +28,8 @@ export class UploadComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private geocoderSvc: GeocoderService
   ) { }
 
   ngOnInit() {
@@ -49,6 +51,12 @@ export class UploadComponent implements OnInit {
   onMarkerDrag(event: MarkerDragResult) {
     this.longitude?.setValue(event.location?.lng);
     this.latitude?.setValue(event.location?.lat);
+
+    this.geocoderSvc.reverseLookup(this.latitude?.value, this.longitude?.value)
+      .subscribe(x => {
+        console.log('reversing!!!')
+        console.log(x);
+      })
   }
 
 }
