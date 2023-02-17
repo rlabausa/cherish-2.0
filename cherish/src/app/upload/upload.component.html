@@ -68,9 +68,13 @@
             </label>
             <textarea id="body" name="body" formControlName="body" cols="30" rows="10"></textarea>
         </div>
-        <button id="uploadBtn" name="uploadBtn" type="submit" [disabled]="form.invalid">
-            Upload
-        </button>
+        <button 
+            mat-raised-button 
+            color="primary" 
+            id="uploadBtn" 
+            name="uploadBtn" 
+            type="submit" 
+            [disabled]="form.invalid">Upload</button>
     </section>
    
 </form>
