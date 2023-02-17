@@ -9,7 +9,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UploadComponent } from './upload/upload.component';
@@ -32,7 +34,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatDialogModule, 
+    MatDialogModule,
+    MatInputModule,
+    MatDividerModule,
     ReactiveFormsModule,
     HttpClientModule
   ],

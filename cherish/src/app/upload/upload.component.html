@@ -9,72 +9,125 @@
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h1>New Post</h1>
-    <section>
-        <div id="lat-long-search">
-            <div id="lat-long-inputs">
-               <div>
-                    <label for="latitude">
-                        Latitude:
-                        <strong><abbr title="required" aria-label="required">*</abbr></strong>
-                    </label>
-                    <input type="text" id="latitude" name="latitude" formControlName="latitude">
-               </div>
-
-                <div>
-                    <label for="longitude">
-                        Longitude:
-                        <strong><abbr title="required" aria-label="required">*</abbr></strong>
-                    </label>
-                    <input type="text" id="longitude" name="longitude" formControlName="longitude">
-                </div>
+    <div>
+        <section>
+            <h1>New Post</h1>
+            <mat-divider></mat-divider>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Title</mat-label>
+                    <input 
+                        matInput
+                        id="title" 
+                        name="title" 
+                        formControlName="title" 
+                        placeholder="Ex. A New Hope" 
+                        value="">
+                </mat-form-field>
             </div>
-            <button id="lat-long-search-button">
-                <mat-icon aria-hidden="false" aria-label="search icon" fontIcon="search"></mat-icon>
-            </button>
-        </div>
-        <div>
-            <label for="title">
-                Post Title:
-                <strong><abbr title="required" aria-label="required">*</abbr></strong>
-            </label>
-            <input id="title" formControlName="title" type="text">
-        </div>
-        <div>
-            <label for="locationTitle">
-                Location:
-                <strong><abbr title="required" aria-label="required">*</abbr></strong>
-            </label>
-            <input id="locationTitle" formControlName="locationTitle" type="text">
-        </div>
-        <div>
-            <label for="author">
-                Author:
-                <strong><abbr title="required" aria-label="required">*</abbr></strong>
-            </label>
-            <input id="author" name="author" formControlName="author" type="text">
-        </div>
-        <div>
-            <label for="image">
-                Image:
-                <strong><abbr title="required" aria-label="required">*</abbr></strong>
-            </label>
-            <input type="file" id="image" formControlName="image" name="image" accept="image/png, image/jpeg">
-        </div>
-        <div>
-            <label for="body">
-                Description:
-                <strong><abbr title="required" aria-label="required">*</abbr></strong>
-            </label>
-            <textarea id="body" name="body" formControlName="body" cols="30" rows="10"></textarea>
-        </div>
-        <button 
-            mat-raised-button 
-            color="primary" 
-            id="uploadBtn" 
-            name="uploadBtn" 
-            type="submit" 
-            [disabled]="form.invalid">Upload</button>
-    </section>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Author</mat-label>
+                    <input 
+                        matInput 
+                        placeholder="Ex. Luke Skywalker" 
+                        id="author" 
+                        name="author" 
+                        formControlName="author"
+                        value="">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <input matInput placeholder="Ex. Tatooine" value="">
+                    <input hidden type="text" id="latitude" name="latitude" formControlName="latitude">
+                    <input hidden type="text" id="longitude" name="longitude" formControlName="longitude">
+                </mat-form-field>
+            </div>
+            
+            <!-- TODO: IMAGE SELECTION -->
+            
+             <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Comment</mat-label>
+                    <textarea 
+                        matInput
+                        id="body"
+                        name="body"
+                        formControlName="body"
+                        placeholder="Ex. A long time ago in a galaxy far, far away...">
+                    </textarea>
+                </mat-form-field>
+            </div>
+            <!--
+            <div id="lat-long-search">
+                <div id="lat-long-inputs">
+                <div>
+                        <label for="latitude">
+                            Latitude:
+                            <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                        </label>
+                        <input type="text" id="latitude" name="latitude" formControlName="latitude">
+                </div>
+
+                    <div>
+                        <label for="longitude">
+                            Longitude:
+                            <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                        </label>
+                        <input type="text" id="longitude" name="longitude" formControlName="longitude">
+                    </div>
+                </div>
+                <button id="lat-long-search-button">
+                    <mat-icon aria-hidden="false" aria-label="search icon" fontIcon="search"></mat-icon>
+                </button>
+            </div>
+            <div>
+                <label for="title">
+                    Post Title:
+                    <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                </label>
+                <input id="title" formControlName="title" type="text">
+            </div>
+            <div>
+                <label for="locationTitle">
+                    Location:
+                    <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                </label>
+                <input id="locationTitle" formControlName="locationTitle" type="text">
+            </div>
+            <div>
+                <label for="author">
+                    Author:
+                    <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                </label>
+                <input id="author" name="author" formControlName="author" type="text">
+            </div>
+            <div>
+                <label for="image">
+                    Image:
+                    <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                </label>
+                <input type="file" id="image" formControlName="image" name="image" accept="image/png, image/jpeg">
+            </div>
+            <div>
+                <label for="body">
+                    Description:
+                    <strong><abbr title="required" aria-label="required">*</abbr></strong>
+                </label>
+                <textarea id="body" name="body" formControlName="body" cols="30" rows="10"></textarea>
+            </div> -->
+            <button 
+                mat-raised-button 
+                color="primary" 
+                id="uploadBtn" 
+                name="uploadBtn" 
+                type="submit" 
+                [disabled]="form.invalid">Upload</button>
+        </section>
+
+    </div>
+    
    
 </form>
