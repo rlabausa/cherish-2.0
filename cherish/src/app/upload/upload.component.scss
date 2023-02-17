@@ -1,21 +1,11 @@
-.map-container{
+.map-container {
     margin: 1rem;
 }
 
-#lat-long-search {
-    display: flex;
-    
-    #lat-long-inputs {
-        margin-right: 1rem;
-    }
-
-    // #lat-long-search-button {
-
-    // }
-}
-
 form {
-   label {
-    margin-right: 1rem;
-   }
+    padding: 5rem;
+
+    mat-divider {
+        padding: 1rem;
+    }
 }

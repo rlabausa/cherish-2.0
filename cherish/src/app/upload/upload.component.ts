@@ -11,7 +11,7 @@ import { GeocoderService } from '../services/geocoder.service';
 export class UploadComponent implements OnInit {
   form: FormGroup = this.fb.group({
     author: ['', Validators.required],
-    locationTitle: ['', Validators.required],
+    location: [{ value: '', disabled: true }, Validators.required],
     latitude: ['', Validators.required],
     longitude: ['', Validators.required],
     title: ['', Validators.required],
