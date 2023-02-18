@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
+import { IPlaceOutput } from '../models/nominatim-osm.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,12 @@ export class GeocoderService {
    * @returns // TODO: ADD RETURN TYPE 
    */
   reverseLookup(latitude: number, longitude: number) {
-    return this.httpClient.get(
-      `${environment.nominatimApiUrl}/${this.REVERSE_LOOKUP_ENDPOINT}`,
-      { params: { lat: latitude, lon: longitude, format: 'json' } }
-    );
+    const params = {
+      lat: latitude,
+      lon: longitude,
+      format: 'json'
+    };
+
+    return this.httpClient.get<IPlaceOutput>(`${environment.nominatimApiUrl}/${this.REVERSE_LOOKUP_ENDPOINT}`, { params: params });
   }
 }
