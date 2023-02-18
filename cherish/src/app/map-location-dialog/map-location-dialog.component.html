@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Select Location</h2>
+
+<mat-dialog-content>
+    <div>
+        <app-map 
+            [mapContainerHeight]="'450px'"
+            [allowDraggableMarker]="true" 
+            [showMarkerOnSearch]="true" 
+            [showPopUpWithLocation]="false"
+            (locationSelected)="onLocationSelected($event)" 
+            (markerDragged)="onMarkerDrag($event)">
+        </app-map>
+    </div>       
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button 
+        mat-raised-button 
+        id="cancelBtn" 
+        name="cancelBtn" 
+        type="button"
+        mat-dialog-close>Cancel</button>
+
+    <button 
+    mat-raised-button 
+    id="selectBtn" 
+    name="selectBtn" 
+    type="button"
+    [mat-dialog-close]="result"
+    cdkFocusInitial>Select</button>
+
+</mat-dialog-actions>

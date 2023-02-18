@@ -1,27 +1,79 @@
-<app-map 
-    [allowDraggableMarker]="true" 
-    [showMarkerOnSearch]="true" 
-    [showPopUpWithLocation]="false"
-    (locationSelected)="onLocationSelected($event)"
-    (markerDragged)="onMarkerDrag($event)"
->
-</app-map>
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
-        <label for="latitude">Latitude</label>
-        <input type="text" id="latitude" name="latitude" formControlName="latitude">
+        <section>
+            <h1>New Post</h1>
+            <mat-divider></mat-divider>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Title</mat-label>
+                    <input 
+                        matInput
+                        id="title" 
+                        name="title" 
+                        formControlName="title" 
+                        placeholder="Ex. A New Hope" 
+                        value="">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Author</mat-label>
+                    <input 
+                        matInput 
+                        placeholder="Ex. Luke Skywalker" 
+                        id="author" 
+                        name="author" 
+                        formControlName="author"
+                        value="">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <input 
+                        matInput 
+                        id="location" 
+                        name="location" 
+                        formControlName="location"
+                        placeholder="Ex. Tatooine" 
+                        value="">
+                        
+                    <input hidden type="text" id="latitude" name="latitude" formControlName="latitude">
+                    <input hidden type="text" id="longitude" name="longitude" formControlName="longitude">
+                </mat-form-field>
+                <button 
+                    mat-fab color="primary" 
+                    aria-label="Search Location"
+                    (click)="openDialogForMap($event)"
+                    >
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+            
+            <!-- TODO: IMAGE SELECTION -->
+            
+             <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Comment</mat-label>
+                    <textarea 
+                        matInput
+                        id="body"
+                        name="body"
+                        formControlName="body"
+                        placeholder="Ex. A long time ago in a galaxy far, far away...">
+                    </textarea>
+                </mat-form-field>
+            </div>
+            <button 
+                mat-raised-button 
+                color="primary" 
+                id="uploadBtn" 
+                name="uploadBtn" 
+                type="submit" 
+                [disabled]="form.invalid">Upload</button>
+        </section>
 
-        <div>
-            <label for="longitude">Longitude</label>
-            <input type="text" id="longitude" name="longitude" formControlName="longitude">
-        </div>
     </div>
-    <button 
-        id="uploadBtn" 
-        name="uploadBtn" 
-        type="submit" 
-        [disabled]="form.invalid">
-        Upload
-    </button>
+    
+   
 </form>

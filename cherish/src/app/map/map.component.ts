@@ -1,19 +1,20 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { tileLayer, map, Map, LatLngExpression, Icon } from 'leaflet';
+import { tileLayer, map, Map, LatLngExpression, Icon, popup } from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
-import { GeoSearchEvent, GeoSearchResult, MarkerDragResult } from '../models/leaflet-geosearch.model';
+import { GeoSearchEvent, IGeoSearchResult, IMarkerDragResult } from '../models/leaflet-geosearch.model';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+  @Input() mapContainerHeight = '90vh';
   @Input() allowDraggableMarker = false;
   @Input() showMarkerOnSearch = true;
-  @Input() showPopUpWithLocation = true;
-  @Output() locationSelected: EventEmitter<GeoSearchResult> = new EventEmitter<GeoSearchResult>();
-  @Output() markerDragged: EventEmitter<MarkerDragResult> = new EventEmitter<MarkerDragResult>();
+  @Input() showPopUpWithLocation = false;
+  @Output() locationSelected: EventEmitter<IGeoSearchResult> = new EventEmitter<IGeoSearchResult>();
+  @Output() markerDragged: EventEmitter<IMarkerDragResult> = new EventEmitter<IMarkerDragResult>();
 
   private readonly ATTRIBUTION = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
   private readonly DEFAULT_MAP_MAX_ZOOM = 18;
@@ -52,12 +53,12 @@ export class MapComponent implements AfterViewInit {
     this.drawMap();
   }
 
-  handleMarkerDrag(result: MarkerDragResult) {
+  handleMarkerDrag(result: IMarkerDragResult) {
     console.log(result)
     this.markerDragged.emit(result);
   }
 
-  handleLocationSelection(result: GeoSearchResult) {
+  handleLocationSelection(result: IGeoSearchResult) {
     console.log(result)
     this.locationSelected.emit(result);
   }
@@ -77,8 +78,8 @@ export class MapComponent implements AfterViewInit {
     //@ts-ignore
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
-      showMarker: showMarkerOnSearch,
-      showPopUp: showPopUpWithLocation,
+      showMarker: showMarkerOnSearch, // flag currently does not work for GeoSearch
+      showPopup: showPopUpWithLocation,
       marker: {
         icon: this.DEFAULT_MARKER_ICON,
         draggable: allowDraggableMarker
