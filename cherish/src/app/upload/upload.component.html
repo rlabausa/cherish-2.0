@@ -37,9 +37,17 @@
                         formControlName="location"
                         placeholder="Ex. Tatooine" 
                         value="">
+                        
                     <input hidden type="text" id="latitude" name="latitude" formControlName="latitude">
                     <input hidden type="text" id="longitude" name="longitude" formControlName="longitude">
                 </mat-form-field>
+                <button 
+                    mat-fab color="primary" 
+                    aria-label="Search Location"
+                    (click)="openDialogForMap($event)"
+                    >
+                    <mat-icon>search</mat-icon>
+                </button>
             </div>
             
             <!-- TODO: IMAGE SELECTION -->

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { tileLayer, map, Map, LatLngExpression, Icon } from 'leaflet';
+import { tileLayer, map, Map, LatLngExpression, Icon, popup } from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
 import { GeoSearchEvent, IGeoSearchResult, IMarkerDragResult } from '../models/leaflet-geosearch.model';
@@ -9,9 +9,10 @@ import { GeoSearchEvent, IGeoSearchResult, IMarkerDragResult } from '../models/l
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+  @Input() mapContainerHeight = '90vh';
   @Input() allowDraggableMarker = false;
   @Input() showMarkerOnSearch = true;
-  @Input() showPopUpWithLocation = true;
+  @Input() showPopUpWithLocation = false;
   @Output() locationSelected: EventEmitter<IGeoSearchResult> = new EventEmitter<IGeoSearchResult>();
   @Output() markerDragged: EventEmitter<IMarkerDragResult> = new EventEmitter<IMarkerDragResult>();
 
@@ -77,8 +78,8 @@ export class MapComponent implements AfterViewInit {
     //@ts-ignore
     const search = new GeoSearch.GeoSearchControl({
       provider: new GeoSearch.OpenStreetMapProvider(),
-      showMarker: showMarkerOnSearch,
-      showPopUp: showPopUpWithLocation,
+      showMarker: showMarkerOnSearch, // flag currently does not work for GeoSearch
+      showPopup: showPopUpWithLocation,
       marker: {
         icon: this.DEFAULT_MARKER_ICON,
         draggable: allowDraggableMarker

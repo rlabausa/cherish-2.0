@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UploadComponent } from './upload/upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MapLocationDialogComponent } from './map-location-dialog/map-location-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     AboutComponent,
     PageNotFoundComponent,
-    UploadComponent
+    UploadComponent,
+    MapLocationDialogComponent
   ],
   imports: [
     BrowserModule,

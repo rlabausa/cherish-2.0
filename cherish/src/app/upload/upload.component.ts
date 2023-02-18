@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MapComponent } from '../map/map.component';
-import { GeocoderService } from '../services/geocoder.service';
+import { MapLocationDialogComponent } from '../map-location-dialog/map-location-dialog.component';
+import { IMapLocationDialogResult } from '../models/map-location-dialog.model';
 
 @Component({
   selector: 'app-upload',
@@ -17,7 +17,7 @@ export class UploadComponent implements OnInit {
     longitude: ['', Validators.required],
     title: ['', Validators.required],
     body: ['', Validators.required],
-    image: ['', Validators.required]
+    // image: ['', Validators.required]
   });
 
   get latitude() {
@@ -35,7 +35,6 @@ export class UploadComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private geocoderSvc: GeocoderService
   ) { }
 
   ngOnInit() {
@@ -43,17 +42,27 @@ export class UploadComponent implements OnInit {
   }
 
   onSubmit() {
-    //TODO
-    console.log('submitted')
-
-    console.log(this.form)
+    //TODO:
+    console.log(this.form.getRawValue());
   }
 
-  openDialogForMap(){
-    const dialogRef = this.dialog.open(MapComponent);
-    const mapComponent = dialogRef.componentInstance;
-    mapComponent.allowDraggableMarker = true;
-    mapComponent.showMarkerOnSearch = true;
-    mapComponent.showPopUpWithLocation = true;
+  openDialogForMap(event: MouseEvent) {
+    event.preventDefault();
+
+    const dialogRef = this.dialog.open(
+      MapLocationDialogComponent, {
+      height: '90vh',
+      width: '80vw'
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(
+        (result: IMapLocationDialogResult) => {
+          if (result) {
+            this.location?.setValue(result.location);
+            this.latitude?.setValue(result.latitude);
+            this.longitude?.setValue(result.longitude);
+          }
+        })
   }
 }

@@ -1,21 +1,21 @@
 export interface IGeoSearchResult {
     location?: {
-        x: number; // lon
-        y: number; // lat
-        bounds: [
+        x?: number; // lon
+        y?: number; // lat
+        bounds?: [
             [number, number], // south, west - lat, lon
             [number, number]  // north, east - lat, lon
         ];
-        label: string; // formatted address
-        raw: any; // raw provider result
+        label?: string; // formatted address
+        raw?: any; // raw provider result
     };
-    type?: string;
-    target?: any;
+    type: string;
+    target: any;
 }
 export interface IMarkerDragResult {
-    location: {
-        lat: number;
-        lng: number;
+    location?: {
+        lat?: number;
+        lng?: number;
     };
     target: any;
     type: string;
