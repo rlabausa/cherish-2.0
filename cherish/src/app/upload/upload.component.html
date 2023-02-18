@@ -1,13 +1,3 @@
-<div class="map-container">
-    <app-map 
-        [allowDraggableMarker]="true" 
-        [showMarkerOnSearch]="true" 
-        [showPopUpWithLocation]="false"
-        (locationSelected)="onLocationSelected($event)" 
-        (markerDragged)="onMarkerDrag($event)">
-    </app-map>
-</div>
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
         <section>

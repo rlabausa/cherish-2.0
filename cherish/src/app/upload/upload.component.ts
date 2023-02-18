@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GeoSearchResult, MarkerDragResult } from '../models/leaflet-geosearch.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MapComponent } from '../map/map.component';
 import { GeocoderService } from '../services/geocoder.service';
 
 @Component({
@@ -27,7 +28,12 @@ export class UploadComponent implements OnInit {
     return this.form.get('longitude');
   }
 
+  get location() {
+    return this.form.get('location');
+  }
+
   constructor(
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private geocoderSvc: GeocoderService
   ) { }
@@ -43,20 +49,11 @@ export class UploadComponent implements OnInit {
     console.log(this.form)
   }
 
-  onLocationSelected(event: GeoSearchResult) {
-    this.longitude?.setValue(event.location?.x);
-    this.latitude?.setValue(event.location?.y);
+  openDialogForMap(){
+    const dialogRef = this.dialog.open(MapComponent);
+    const mapComponent = dialogRef.componentInstance;
+    mapComponent.allowDraggableMarker = true;
+    mapComponent.showMarkerOnSearch = true;
+    mapComponent.showPopUpWithLocation = true;
   }
-
-  onMarkerDrag(event: MarkerDragResult) {
-    this.longitude?.setValue(event.location?.lng);
-    this.latitude?.setValue(event.location?.lat);
-
-    this.geocoderSvc.reverseLookup(this.latitude?.value, this.longitude?.value)
-      .subscribe(x => {
-        console.log('reversing!!!')
-        console.log(x);
-      })
-  }
-
 }
