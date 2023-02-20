@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
+import { IAddPostRequest } from '../models/cherish-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class CherishDataService {
     return this.httpClient.get(`${this.BASE_URL}/${this.POSTS_ENDPOINT}/${id}`);
   }
 
-  addPost(body: any){
-    return this.httpClient.post(`${this.BASE_URL}/${this.POSTS_ENDPOINT}`, body);
+  addPost(requestBody: IAddPostRequest){
+    return this.httpClient.post(`${this.BASE_URL}/${this.POSTS_ENDPOINT}`, requestBody);
   }
 }
