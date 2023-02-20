@@ -5,8 +5,18 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CherishDataService {
+  private BASE_URL = environment.cherishDataApiUrl;
+  private POSTS_ENDPOINT = 'posts';
 
   constructor(
-    httpClient: HttpClient
+    private httpClient: HttpClient
   ) { }
+
+  getAllPosts() {
+    return this.httpClient.get(`${this.BASE_URL}/${this.POSTS_ENDPOINT}`);
+  }
+
+  getPostById(id: number){
+    return this.httpClient.get(`${this.BASE_URL}/${this.POSTS_ENDPOINT}/${id}`);
+  }
 }
