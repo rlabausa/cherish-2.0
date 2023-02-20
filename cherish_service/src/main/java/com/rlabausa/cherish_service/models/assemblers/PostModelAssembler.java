@@ -18,7 +18,7 @@ public class PostModelAssembler implements RepresentationModelAssembler<Post, En
                 linkTo(methodOn(PostsController.class).getOne(post.getId()))
                         .withSelfRel(),
                 linkTo(methodOn(PostsController.class).getAll())
-                        .withRel("posts")
+                        .withRel("/posts")
                 );
 
         return postModel;
