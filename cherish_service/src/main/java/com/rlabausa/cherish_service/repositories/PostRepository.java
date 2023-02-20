@@ -1,8 +1,8 @@
 package com.rlabausa.cherish_service.repositories;
 
 import com.rlabausa.cherish_service.models.Post;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 
 }
