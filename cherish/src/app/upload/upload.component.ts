@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MapLocationDialogComponent } from '../map-location-dialog/map-location-dialog.component';
 import { IMapLocationDialogResult } from '../models/map-location-dialog.model';
+import { CherishDataService } from '../services/cherish-data.service';
 
 @Component({
   selector: 'app-upload',
@@ -12,7 +13,7 @@ import { IMapLocationDialogResult } from '../models/map-location-dialog.model';
 export class UploadComponent implements OnInit {
   form: FormGroup = this.fb.group({
     author: ['', Validators.required],
-    location: [{ value: '', disabled: true }, Validators.required],
+    locationName: [{ value: '', disabled: true }, Validators.required],
     latitude: ['', Validators.required],
     longitude: ['', Validators.required],
     title: ['', Validators.required],
@@ -28,13 +29,14 @@ export class UploadComponent implements OnInit {
     return this.form.get('longitude');
   }
 
-  get location() {
-    return this.form.get('location');
+  get locationName() {
+    return this.form.get('locationName');
   }
 
   constructor(
+    private cherishDataSvc: CherishDataService,
     private dialog: MatDialog,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -42,8 +44,16 @@ export class UploadComponent implements OnInit {
   }
 
   onSubmit() {
-    //TODO:
-    console.log(this.form.getRawValue());
+    this.cherishDataSvc
+      .addPost(this.form.getRawValue())
+      .subscribe({
+        next: () => {
+          alert('Post successfully saved!');
+        },
+        error: () => {
+          alert('Error: Post could not be created.  Please try again later.');
+        }
+      })
   }
 
   openDialogForMap(event: MouseEvent) {
@@ -59,7 +69,7 @@ export class UploadComponent implements OnInit {
       .subscribe(
         (result: IMapLocationDialogResult) => {
           if (result) {
-            this.location?.setValue(result.location);
+            this.locationName?.setValue(result.location);
             this.latitude?.setValue(result.latitude);
             this.longitude?.setValue(result.longitude);
           }
