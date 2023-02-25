@@ -3,6 +3,7 @@ import { tileLayer, map, Map, LatLngExpression, Icon, popup } from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
 import { GeoSearchEvent, IGeoSearchResult, IMarkerDragResult } from '../models/leaflet-geosearch.model';
+import { CherishDataService } from '../services/cherish-data.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -29,6 +30,12 @@ export class MapComponent implements AfterViewInit {
 
   private map!: Map;
   readonly MAP_HTML_ID = 'map';
+
+  constructor(
+    private cherishDataSvc: CherishDataService
+  ) {
+
+  }
 
   ngAfterViewInit(): void {
     navigator.geolocation.getCurrentPosition(
