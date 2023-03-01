@@ -142,7 +142,8 @@ export class MapComponent implements AfterViewInit {
       <b>Location:</b> ${locationName}
       <br>
       <br>
-      ${body}<br>
+      ${body}
+      <br>
       <br>
     </p> 
     `;
