@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { tileLayer, map, Map, LatLngExpression, Icon, popup } from 'leaflet';
+import { tileLayer, map, Map, LatLngExpression, Icon, popup, marker, MarkerOptions, Marker, PopupOptions, Popup } from 'leaflet';
 import * as GeoSearch from 'leaflet-geosearch';
 import { environment } from 'src/environments/environment.development';
+import { IPost } from '../models/cherish-data.model';
 import { GeoSearchEvent, IGeoSearchResult, IMarkerDragResult } from '../models/leaflet-geosearch.model';
+import { CherishDataService } from '../services/cherish-data.service';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -30,6 +32,12 @@ export class MapComponent implements AfterViewInit {
   private map!: Map;
   readonly MAP_HTML_ID = 'map';
 
+  constructor(
+    private cherishDataSvc: CherishDataService
+  ) {
+
+  }
+
   ngAfterViewInit(): void {
     navigator.geolocation.getCurrentPosition(
       this.handleGetCurrentPositionSuccess.bind(this),
@@ -51,16 +59,6 @@ export class MapComponent implements AfterViewInit {
     console.warn(`ERROR(${error.code}): ${error.message})`);
 
     this.drawMap();
-  }
-
-  handleMarkerDrag(result: IMarkerDragResult) {
-    console.log(result)
-    this.markerDragged.emit(result);
-  }
-
-  handleLocationSelection(result: IGeoSearchResult) {
-    console.log(result)
-    this.locationSelected.emit(result);
   }
 
   drawMap(
@@ -102,6 +100,65 @@ export class MapComponent implements AfterViewInit {
     this.map.on(GeoSearchEvent.ShowLocation, this.handleLocationSelection.bind(this));
     this.map.on(GeoSearchEvent.DragEnd, this.handleMarkerDrag.bind(this));
 
+    this.drawMarkers();
+
+  }
+
+  handleMarkerDrag(result: IMarkerDragResult) {
+    console.log(result)
+    this.markerDragged.emit(result);
+  }
+
+  handleLocationSelection(result: IGeoSearchResult) {
+    console.log(result)
+    this.locationSelected.emit(result);
+  }
+
+  drawMarkers() {
+    this.cherishDataSvc
+      .getAllPosts()
+      .subscribe(
+        (response) => {
+          const posts = response._embedded.postList;
+          console.log(posts);
+
+          posts.forEach(post => {
+            const markerLocation: LatLngExpression = [post.latitude, post.longitude];
+            const popupContent = this.buildPopUpContentFromPost(post);
+            const postMarker = this.buildMarkerWithPopUpContent(markerLocation, popupContent);
+
+            postMarker.addTo(this.map);
+          });
+        }
+      );
+  }
+
+  buildPopUpContentFromPost(post: IPost) {
+    const { author, locationName, body } = post;
+
+    const html = `
+    <p>
+      <b>Author:</b> ${author}<br>
+      <b>Location:</b> ${locationName}
+      <br>
+      <br>
+      ${body}
+      <br>
+      <br>
+    </p> 
+    `;
+    const opts: PopupOptions = { content: html };
+    const pop = popup(opts);
+
+    return pop;
+  }
+
+  buildMarkerWithPopUpContent(location: LatLngExpression, popupContent: Popup): Marker {
+    const opts: MarkerOptions = { icon: this.DEFAULT_MARKER_ICON };
+    const mark: Marker = marker(location, opts);
+    mark.bindPopup(popupContent);
+
+    return mark;
   }
 
 }
