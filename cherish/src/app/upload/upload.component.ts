@@ -75,4 +75,18 @@ export class UploadComponent implements OnInit {
           }
         })
   }
+
+  openFileSelector(event: any) {
+    event.preventDefault();
+
+    const fileInput: HTMLInputElement = document.querySelector('#fileInput');
+    fileInput.click();
+  }
+
+  handleFileSelection(event: any){
+    const target = event.target as HTMLInputElement;
+    console.log(target.files)
+  }
+
+
 }
