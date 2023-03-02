@@ -11,6 +11,8 @@ import { CherishDataService } from '../services/cherish-data.service';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
+  readonly FILE_INPUT_ID = 'fileInput';
+
   form: FormGroup = this.fb.group({
     author: ['', Validators.required],
     locationName: [{ value: '', disabled: true }, Validators.required],
@@ -79,7 +81,7 @@ export class UploadComponent implements OnInit {
   openFileSelector(event: any) {
     event.preventDefault();
 
-    const fileInput: HTMLInputElement = document.querySelector('#fileInput');
+    const fileInput: HTMLInputElement = document.querySelector(`#${this.FILE_INPUT_ID}`);
     fileInput.click();
   }
 

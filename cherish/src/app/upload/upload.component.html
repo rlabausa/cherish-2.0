@@ -14,8 +14,8 @@
                 
                 <input 
                     type="file" 
-                    name="fileInput" 
-                    id="fileInput" 
+                    [name]="FILE_INPUT_ID" 
+                    [id]="FILE_INPUT_ID" 
                     (change)="handleFileSelection($event)"
                     hidden>
               </div>
