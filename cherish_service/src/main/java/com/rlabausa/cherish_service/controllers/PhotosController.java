@@ -61,7 +61,8 @@ public class PhotosController {
     }
 
     private String generateFilePathForStorage(MultipartFile file){
-        String filePath = this.FOLDER_PATH + file.getName();
-        return filePath;
+        String newFileName = file.getOriginalFilename();
+        Path filePath = this.FOLDER_PATH.resolve(newFileName);
+        return filePath.toString();
     }
 }
