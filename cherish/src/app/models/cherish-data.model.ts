@@ -24,3 +24,8 @@ export interface IPost {
     body: string;
     _links?: any;
 }
+
+export interface IAddPostResponse {
+    id: number;
+    filePath?: string;
+}
