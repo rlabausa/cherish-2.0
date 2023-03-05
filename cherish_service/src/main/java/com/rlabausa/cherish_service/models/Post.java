@@ -1,7 +1,5 @@
 package com.rlabausa.cherish_service.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -19,12 +17,14 @@ public class Post {
     private String title;
     private String author;
     private String body;
+    @Column(name = "photo_id")
+    private Long photoId;
 
     public Post(){
 
     }
 
-    public Post(Long id, String locationName, BigDecimal latitude, BigDecimal longitude, String title, String author, String body) {
+    public Post(Long id, String locationName, BigDecimal latitude, BigDecimal longitude, String title, String author, String body, Long photoId) {
         this.id = id;
         this.locationName = locationName;
         this.latitude = latitude;
@@ -32,10 +32,15 @@ public class Post {
         this.title = title;
         this.author = author;
         this.body = body;
+        this.photoId = photoId;
     }
 
     public Long getId() {
         return this.id;
+    }
+
+    public Long getPhotoId() {
+        return photoId;
     }
 
     public String getLocationName() {
@@ -60,6 +65,10 @@ public class Post {
 
     public String getBody() {
         return body;
+    }
+
+    public void setPhotoId(Long photoId) {
+        this.photoId = photoId;
     }
 
     public void setLocationName(String locationName) {
