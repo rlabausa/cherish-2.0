@@ -11,6 +11,10 @@
                     (click)="openFileSelector($event)">
                   <mat-icon>add_a_photo</mat-icon>
                 </button>
+
+                <span>{{ selectedFile?.name }}</span>
+                
+                <img id="filePreview" name="filePreview" [src]="" alt="Image preview">
                 
                 <input 
                     type="file" 
@@ -19,7 +23,14 @@
                     [id]="FILE_INPUT_ID" 
                     (change)="handleFileSelection($event)"
                     hidden>
-              </div>
+
+                <input 
+                    type="text" 
+                    name="imageId" 
+                    id="imageId" 
+                    hidden>
+            </div>
+
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Title</mat-label>

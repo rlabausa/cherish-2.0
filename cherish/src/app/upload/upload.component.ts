@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { fileHasValidImageSignature, readDataUrl } from '../common/file.utilities';
 import { MapLocationDialogComponent } from '../map-location-dialog/map-location-dialog.component';
+import { IAddPostResponse } from '../models/cherish-data.model';
 import { IMapLocationDialogResult } from '../models/map-location-dialog.model';
 import { CherishDataService } from '../services/cherish-data.service';
 
@@ -12,6 +14,10 @@ import { CherishDataService } from '../services/cherish-data.service';
 })
 export class UploadComponent implements OnInit {
   readonly FILE_INPUT_ID = 'fileInput';
+  readonly FILE_PREVIEW_ID = 'filePreview';
+
+  selectedFile: File;
+  imageIsUploaded = false;
 
   form: FormGroup = this.fb.group({
     author: ['', Validators.required],
@@ -20,7 +26,7 @@ export class UploadComponent implements OnInit {
     longitude: ['', Validators.required],
     title: ['', Validators.required],
     body: ['', Validators.required],
-    // image: ['', Validators.required]
+    imageId: ['', Validators.required]
   });
 
   get latitude() {
@@ -34,6 +40,11 @@ export class UploadComponent implements OnInit {
   get locationName() {
     return this.form.get('locationName');
   }
+
+  get imageId() {
+    return this.form.get('imageId');
+  }
+
 
   constructor(
     private cherishDataSvc: CherishDataService,
@@ -85,10 +96,39 @@ export class UploadComponent implements OnInit {
     fileInput.click();
   }
 
-  handleFileSelection(event: any){
+  async handleFileSelection(event: any) {
+    const preview: HTMLImageElement = document.querySelector(`#${this.FILE_PREVIEW_ID}`);
+    preview.src = '';
+
+    this.imageIsUploaded = false;
+
     const target = event.target as HTMLInputElement;
-    console.log(target.files)
+    const fileList: FileList = target.files;
+    const file: File = fileList[0];
+
+    this.selectedFile = file;
+
+    const fileIsValid = await fileHasValidImageSignature(file);
+
+    if (fileIsValid) {
+      preview.src = await readDataUrl(file);
+
+      this.cherishDataSvc.addImage(file)
+        .subscribe({
+          next: (res: IAddPostResponse) => {
+            this.imageIsUploaded = true;
+            this.imageId.setValue(res.id);
+          },
+          error: () => {
+            console.error('error')
+          }
+        });
+
+    } else {
+      alert('File format is invalid.  Please select another image to upload.')
+    }
   }
+
 
 
 }
