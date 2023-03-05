@@ -17,6 +17,21 @@ export function readBuffer(file: File, start: number, end: number): Promise<Arra
     });
 }
 
+export function readDataUrl(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            resolve(reader.result as string);
+        }
+
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
 export function bytesMatch(headers: number[] | ReadonlyArray<number>, buffers: Uint8Array, options = { offset: 0 }) {
     return headers.every((header, index) => header === buffers[options.offset + index]);
 }
@@ -33,4 +48,10 @@ export async function isJPG(file: File) {
     const uint8array = new Uint8Array(buffer);
 
     return bytesMatch(JPG_HEX_SIGNATURE, uint8array);
+}
+
+export async function getDataUrlFromFile(file: File) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
 }
