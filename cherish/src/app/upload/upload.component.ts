@@ -26,7 +26,7 @@ export class UploadComponent implements OnInit {
     longitude: ['', Validators.required],
     title: ['', Validators.required],
     body: ['', Validators.required],
-    imageId: ['', Validators.required]
+    photoId: ['', Validators.required]
   });
 
   get latitude() {
@@ -41,8 +41,8 @@ export class UploadComponent implements OnInit {
     return this.form.get('locationName');
   }
 
-  get imageId() {
-    return this.form.get('imageId');
+  get photoId() {
+    return this.form.get('photoId');
   }
 
 
@@ -117,7 +117,7 @@ export class UploadComponent implements OnInit {
         .subscribe({
           next: (res: IAddPostResponse) => {
             this.imageIsUploaded = true;
-            this.imageId.setValue(res.id);
+            this.photoId.setValue(res.id);
           },
           error: () => {
             console.error('error')
