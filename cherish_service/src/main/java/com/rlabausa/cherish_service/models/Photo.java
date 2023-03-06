@@ -26,12 +26,24 @@ public class Photo {
     private Long id;
     private String filePath;
 
+    @Transient
+    private String src;
+
     public Photo(){
 
     }
 
-    public Photo(Long id, String filePath) {
+    public Photo(Long id, String filePath, String src) {
         this.id = id;
         this.filePath = filePath;
+        this.src = src;
+    }
+
+    public String getSrc() {
+        return this.src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }
