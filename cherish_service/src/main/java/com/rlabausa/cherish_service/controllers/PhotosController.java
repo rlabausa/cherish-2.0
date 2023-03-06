@@ -40,7 +40,7 @@ public class PhotosController {
 
     @GetMapping(
             value = "/src/{id}",
-            produces = MediaType.IMAGE_PNG_VALUE
+            produces = MediaType.IMAGE_JPEG_VALUE
     )
     public ResponseEntity<?> getPhotoSrc(@PathVariable Long id) throws IOException {
         return this.photoService.downloadPhoto(id);

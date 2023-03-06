@@ -78,7 +78,7 @@ public class PhotoService {
         InputStreamResource resource = new InputStreamResource(in);
 
         return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
+                .contentType(MediaType.IMAGE_JPEG)
                 .body(resource);
     }
 
