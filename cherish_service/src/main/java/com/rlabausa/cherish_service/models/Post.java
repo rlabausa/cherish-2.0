@@ -67,6 +67,7 @@ public class Post {
         return body;
     }
 
+    @Column(name = "photo_id")
     public void setPhotoId(Long photoId) {
         this.photoId = photoId;
     }
