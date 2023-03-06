@@ -1,7 +1,10 @@
 import { JPG_HEX_SIGNATURE, PNG_HEX_SIGNATURE } from "./file-signature.constants";
 
 export async function fileHasValidImageSignature(file: File) {
-    return isPNG(file) || isJPG(file);
+    return (
+        await isPNG(file) ||
+        await isJPG(file)
+    );
 }
 
 export function readBuffer(file: File, start: number, end: number): Promise<ArrayBuffer> {
