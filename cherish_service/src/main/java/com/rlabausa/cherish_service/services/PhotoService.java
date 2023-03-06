@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PhotoService {
@@ -59,6 +61,20 @@ public class PhotoService {
         return ResponseEntity.ok()
                 .body(photo);
 
+    }
+
+    public ResponseEntity<List<Photo>> getAllPhotos(){
+        var photos = this.photoRepository.findAll()
+                .stream()
+                .map(photo -> {
+                    var downloadUri = this.getPhotoUrlFromId(photo.getId());
+                    photo.setSrc(downloadUri);
+                    return photo;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok()
+                .body(photos);
     }
 
 

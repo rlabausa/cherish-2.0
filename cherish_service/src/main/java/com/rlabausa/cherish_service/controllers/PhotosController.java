@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @RestController
 @RequestMapping("photos")
@@ -44,6 +45,11 @@ public class PhotosController {
     )
     public ResponseEntity<?> getPhotoSrc(@PathVariable Long id) throws IOException {
         return this.photoService.downloadPhoto(id);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Photo>> getAllPhotos() {
+        return this.photoService.getAllPhotos();
     }
 
 
