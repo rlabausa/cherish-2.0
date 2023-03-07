@@ -13,9 +13,6 @@ import { CherishDataService } from '../services/cherish-data.service';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  readonly FILE_INPUT_ID = 'fileInput';
-  readonly FILE_PREVIEW_ID = 'filePreview';
-
   selectedFile: File;
   imageIsUploaded = false;
 
@@ -89,46 +86,13 @@ export class UploadComponent implements OnInit {
         })
   }
 
-  openFileSelector(event: any) {
-    event.preventDefault();
-
-    const fileInput: HTMLInputElement = document.querySelector(`#${this.FILE_INPUT_ID}`);
-    fileInput.click();
+  setPhotoIdInForm(id: number) {
+    this.photoId.setValue(id);
   }
 
-  async handleFileSelection(event: any) {
-    const preview: HTMLImageElement = document.querySelector(`#${this.FILE_PREVIEW_ID}`);
-    preview.src = '';
-
-    this.imageIsUploaded = false;
-
-    const target = event.target as HTMLInputElement;
-    const fileList: FileList = target.files;
-    const file: File = fileList[0];
-
-    this.selectedFile = file;
-
-    const fileIsValid = await fileHasValidImageSignature(file);
-
-    if (fileIsValid) {
-      preview.src = await readDataUrl(file);
-
-      this.cherishDataSvc.addImage(file)
-        .subscribe({
-          next: (res: IAddPostResponse) => {
-            this.imageIsUploaded = true;
-            this.photoId.setValue(res.id);
-          },
-          error: () => {
-            console.error('error')
-          }
-        });
-
-    } else {
-      alert('File format is invalid.  Please select another image to upload.')
-    }
+  setPhotoUploadError(){
+    this.photoId.setValue(null);
+    this.photoId.updateValueAndValidity(); 
   }
-
-
 
 }

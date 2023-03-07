@@ -18,6 +18,7 @@ import { UploadComponent } from './upload/upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MapLocationDialogComponent } from './map-location-dialog/map-location-dialog.component';
+import { PhotoInputComponent } from './photo-input/photo-input.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MapLocationDialogComponent } from './map-location-dialog/map-location-d
     AboutComponent,
     PageNotFoundComponent,
     UploadComponent,
-    MapLocationDialogComponent
+    MapLocationDialogComponent,
+    PhotoInputComponent
   ],
   imports: [
     BrowserModule,

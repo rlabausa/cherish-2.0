@@ -3,33 +3,12 @@
         <section>
             <h1>New Post</h1>
             <mat-divider></mat-divider>
-            <div class="example-button-container">
-                <button 
-                    type="button" 
-                    mat-fab color="primary" 
-                    aria-label="Add a photo"
-                    (click)="openFileSelector($event)">
-                  <mat-icon>add_a_photo</mat-icon>
-                </button>
-
-                <span>{{ selectedFile?.name }}</span>
-                
-                <img id="filePreview" name="filePreview" [src]="" alt="Image preview">
-                
-                <input 
-                    type="file" 
-                    accept="image/jpg"
-                    [name]="FILE_INPUT_ID" 
-                    [id]="FILE_INPUT_ID" 
-                    (change)="handleFileSelection($event)"
-                    hidden>
-
-                <input 
-                    type="text" 
-                    name="photoId" 
-                    id="photoId" 
-                    hidden>
-            </div>
+           
+            <app-photo-input 
+                (photoUploadSuccess)="setPhotoIdInForm($event)"
+                (photoUploadError)="setPhotoUploadError()"
+                >
+            </app-photo-input>
 
             <div>
                 <mat-form-field appearance="outline">

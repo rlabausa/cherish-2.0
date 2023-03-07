@@ -1,0 +1,33 @@
+<div class="photo-input-container">
+    <button 
+        type="button" 
+        mat-fab color="primary" 
+        aria-label="Add a photo"
+        (click)="openFileSelector($event)">
+      <mat-icon>add_a_photo</mat-icon>
+    </button>
+    
+    <div class="preview-container">
+        <div>
+            <img id="filePreview" name="filePreview" [src]="" [alt]="selectedFile? 'Image Preview' : ''">
+        </div>
+        <div>
+            <span>{{ selectedFile?.name }}</span>
+        </div>   
+    </div>
+ 
+    
+    <input 
+        type="file" 
+        accept="image/jpg"
+        [name]="FILE_INPUT_ID" 
+        [id]="FILE_INPUT_ID" 
+        (change)="handleFileSelection($event)"
+        hidden>
+
+    <input 
+        type="text" 
+        name="photoId" 
+        id="photoId" 
+        hidden>
+</div>
