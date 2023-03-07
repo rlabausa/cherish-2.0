@@ -144,6 +144,7 @@ export class MapComponent implements AfterViewInit {
       <br>
       ${body}
       <br>
+      <img src= "${environment.cherishDataApiUrl}/photos/src/${post.photoId}" style="width: 300px"/>
       <br>
     </p> 
     `;

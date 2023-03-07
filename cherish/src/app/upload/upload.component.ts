@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { fileHasValidImageSignature, readDataUrl } from '../common/file.utilities';
 import { MapLocationDialogComponent } from '../map-location-dialog/map-location-dialog.component';
+import { IAddPostResponse } from '../models/cherish-data.model';
 import { IMapLocationDialogResult } from '../models/map-location-dialog.model';
 import { CherishDataService } from '../services/cherish-data.service';
 
@@ -11,6 +13,9 @@ import { CherishDataService } from '../services/cherish-data.service';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
+  selectedFile: File;
+  imageIsUploaded = false;
+
   form: FormGroup = this.fb.group({
     author: ['', Validators.required],
     locationName: [{ value: '', disabled: true }, Validators.required],
@@ -18,7 +23,7 @@ export class UploadComponent implements OnInit {
     longitude: ['', Validators.required],
     title: ['', Validators.required],
     body: ['', Validators.required],
-    // image: ['', Validators.required]
+    photoId: ['', Validators.required]
   });
 
   get latitude() {
@@ -32,6 +37,11 @@ export class UploadComponent implements OnInit {
   get locationName() {
     return this.form.get('locationName');
   }
+
+  get photoId() {
+    return this.form.get('photoId');
+  }
+
 
   constructor(
     private cherishDataSvc: CherishDataService,
@@ -75,4 +85,14 @@ export class UploadComponent implements OnInit {
           }
         })
   }
+
+  setPhotoIdInForm(id: number) {
+    this.photoId.setValue(id);
+  }
+
+  setPhotoUploadError(){
+    this.photoId.setValue(null);
+    this.photoId.updateValueAndValidity(); 
+  }
+
 }

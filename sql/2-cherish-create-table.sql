@@ -1,6 +1,5 @@
 USE <database>;
 GO
-
 CREATE TABLE [cherish].[POSTS] (
 	id BIGINT IDENTITY (1,1) PRIMARY KEY,
 	latitude DECIMAL(17,15) NOT NULL,
@@ -9,6 +8,13 @@ CREATE TABLE [cherish].[POSTS] (
 	location_name VARCHAR(256) NOT NULL,
 	author VARCHAR(100) NOT NULL,
 	body VARCHAR(MAX) NOT NULL,
-	--img_path VARCHAR(256) NOT NULL -- future feature!
+	photo_id BIGINT NOT NULL, 
+	CONSTRAINT fk_posts_photo_id FOREIGN KEY (photo_id) REFERENCES [cherish].[PHOTOS] (id)
+);
+GO
+
+CREATE TABLE [cherish].[PHOTOS] (
+	id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	filepath VARCHAR(260) NOT NULL UNIQUE
 );
 GO

@@ -23,4 +23,10 @@ export interface IPost {
     author: string;
     body: string;
     _links?: any;
+    photoId: number;
+}
+
+export interface IAddPostResponse {
+    id: number;
+    filePath?: string;
 }

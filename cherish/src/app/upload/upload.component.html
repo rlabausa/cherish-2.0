@@ -1,8 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <div>
         <section>
             <h1>New Post</h1>
             <mat-divider></mat-divider>
+           
+            <app-photo-input 
+                (photoUploadSuccess)="setPhotoIdInForm($event)"
+                (photoUploadError)="setPhotoUploadError()"
+                >
+            </app-photo-input>
+
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Title</mat-label>
@@ -49,8 +56,6 @@
                     <mat-icon>search</mat-icon>
                 </button>
             </div>
-            
-            <!-- TODO: IMAGE SELECTION -->
             
              <div>
                 <mat-form-field appearance="outline">
