@@ -3,13 +3,17 @@ package com.rlabausa.cherish_service.services;
 import com.rlabausa.cherish_service.models.Photo;
 import com.rlabausa.cherish_service.repositories.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -20,9 +24,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class PhotoService {
-    private final Path RESOURCES_ROOT = Paths.get("src", "main", "resources");
-    private final Path PHOTOS_DIRECTORY = Paths.get("photos");
-    private final Path PHOTOS_ROOT = this.RESOURCES_ROOT.resolve(this.PHOTOS_DIRECTORY);
+    private final Path PHOTOS_DIRECTORY = Paths.get(
+            "C:",
+            "Users",
+            "rubyl",
+            "source",
+            "repos",
+            "cherish-2.0",
+            "app_photo_uploads"
+    );
 
     private PhotoRepository photoRepository;
 
@@ -32,21 +42,19 @@ public class PhotoService {
 
     public Photo addPhoto(MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename();
-        Path fileSystemPath = this.generatePathForFileSystemStorage(fileName);
-        Path databasePath = this.generatePathForDatabaseStorage(fileName);
+
+        Path filePath = this.PHOTOS_DIRECTORY.resolve(fileName);
 
         // save to database
         Photo newPhoto = new Photo();
-        newPhoto.setFilePath(databasePath.toString());
+        newPhoto.setFilePath(filePath.toString());
         Photo savedPhoto = this.photoRepository.save(newPhoto);
 
-        if (savedPhoto != null){
-            // save to filesystem
-            Files.copy(
-                    file.getInputStream(),
-                    fileSystemPath
-            );
-        }
+        // save to filesystem
+        Files.copy(
+                file.getInputStream(),
+                filePath
+        );
 
         return savedPhoto;
     }
@@ -78,7 +86,7 @@ public class PhotoService {
     }
 
 
-    public ResponseEntity<?> downloadPhoto(Long id){
+    public ResponseEntity<?> downloadPhoto(Long id) throws IOException {
         Photo photo = this.photoRepository.findById(id)
                 .orElseThrow();
 
@@ -86,16 +94,12 @@ public class PhotoService {
 
         System.out.println(photoPath);
 
-
-        InputStream in = Thread.currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream(photoPath);
-
-        InputStreamResource resource = new InputStreamResource(in);
+        FileInputStream inputStream = new FileInputStream(photoPath);
+        byte[] bytes = StreamUtils.copyToByteArray(inputStream);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
-                .body(resource);
+                .body(bytes);
     }
 
     private String getPhotoUrlFromId(Long id){
@@ -106,17 +110,5 @@ public class PhotoService {
 
         return downloadUri;
 
-    }
-
-    private Path generatePathForFileSystemStorage(String fileName){
-        Path filePath = this.PHOTOS_ROOT.resolve(fileName);
-
-        return filePath;
-    }
-
-    private Path generatePathForDatabaseStorage(String fileName){
-        Path filePath = this.PHOTOS_DIRECTORY.resolve(fileName);
-
-        return filePath;
     }
 }
