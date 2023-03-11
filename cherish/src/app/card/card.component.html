@@ -15,7 +15,7 @@
             [src]="PHOTO_URL + post?.photoId" 
             alt="Main Photo"/>
     <mat-card-content>
-        <h3 data-testid="title">{{post?.title}}</h3>
+        <mat-card-title *ngIf="post?.title" data-testid="title">{{post?.title}}</mat-card-title>
         <p data-testid="body">
            {{post?.body}}
         </p>
