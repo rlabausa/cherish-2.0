@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UploadComponent } from './upload/upload.component';
@@ -19,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MapLocationDialogComponent } from './map-location-dialog/map-location-dialog.component';
 import { PhotoInputComponent } from './photo-input/photo-input.component';
+import { CardComponent } from './card/card.component';
+import { StoriesComponent } from './stories/stories.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { PhotoInputComponent } from './photo-input/photo-input.component';
     PageNotFoundComponent,
     UploadComponent,
     MapLocationDialogComponent,
-    PhotoInputComponent
+    PhotoInputComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ import { PhotoInputComponent } from './photo-input/photo-input.component';
     MatDialogModule,
     MatInputModule,
     MatDividerModule,
+    MatCardModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
