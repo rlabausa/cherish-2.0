@@ -7,9 +7,11 @@ import { IAddPostRequest, IAddPostResponse, IGetPostsResponse } from '../models/
   providedIn: 'root'
 })
 export class CherishDataService {
-  private BASE_URL = environment.cherishDataApiUrl;
-  private IMAGES_ENDPOINT = 'photos';
-  private POSTS_ENDPOINT = 'posts';
+  private readonly BASE_URL = environment.cherishDataApiUrl;
+  private readonly PHOTOS_ENDPOINT = 'photos';
+  private readonly POSTS_ENDPOINT = 'posts';
+
+  public readonly PHOTO_URL_BASE = `${environment.cherishDataApiUrl}/${this.PHOTOS_ENDPOINT}/src/`
 
   constructor(
     private httpClient: HttpClient
@@ -31,7 +33,7 @@ export class CherishDataService {
     const data = new FormData();
     data.append('file', file);
 
-    return this.httpClient.post<IAddPostResponse>(`${this.BASE_URL}/${this.IMAGES_ENDPOINT}`, data, {
+    return this.httpClient.post<IAddPostResponse>(`${this.BASE_URL}/${this.PHOTOS_ENDPOINT}`, data, {
       reportProgress: true
     });
   }
