@@ -34,6 +34,7 @@ import { StoriesComponent } from './stories/stories.component';
     MapLocationDialogComponent,
     PhotoInputComponent,
     CardComponent,
+    StoriesComponent
   ],
   imports: [
     BrowserModule,
