@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { IGetPostsResponse } from '../models/cherish-data.model';
 import { CherishDataService } from '../services/cherish-data.service';
@@ -12,16 +13,22 @@ fdescribe('StoriesComponent', () => {
   let cherishDataSvc: jasmine.SpyObj<CherishDataService>;
 
   beforeEach(async () => {
+    cherishDataSvc = jasmine.createSpyObj(['getAllPosts']);
+
     await TestBed.configureTestingModule({
       declarations: [StoriesComponent],
-      imports: [HttpClientModule]
+      imports: [HttpClientModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        { provide: CherishDataService, useValue: cherishDataSvc }
+      ]
     })
       .compileComponents();
 
   });
 
   beforeEach(() => {
-    cherishDataSvc = jasmine.createSpyObj(['getAllPosts']);
+
     cherishDataSvc.getAllPosts.and.returnValue(
       of(
         {
@@ -58,12 +65,13 @@ fdescribe('StoriesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display 2 cards', () => {
-    const cards = document.querySelectorAll<HTMLElement>('app-card');
-    
+  it('should display 2 cards', fakeAsync(() => {
+    flush();
 
+    expect(cherishDataSvc.getAllPosts).toHaveBeenCalled();
+    const cards = document.querySelectorAll('app-card');
     expect(cards.length).toEqual(2);
-  });
+  }));
 
 
 });
