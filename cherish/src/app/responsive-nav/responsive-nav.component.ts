@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { AboutComponent } from '../about/about.component';
 
 @Component({
   selector: 'app-responsive-nav',
@@ -16,6 +18,20 @@ export class ResponsiveNavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog
+  ) { }
+
+  openAboutDialog(event: MouseEvent) {
+    event.preventDefault();
+
+    const dialogRef = this.dialog.open(AboutComponent);
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      })
+  }
 
 }

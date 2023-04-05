@@ -1,13 +1,13 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav #drawer class="sidenav"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+      [opened]="false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item routerLink="upload">Create an Entry</a>
+      <a mat-list-item routerLink="stories">View the stories</a>
+      <a mat-list-item (click)="openAboutDialog($event)">How this site works</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,9 +20,22 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+
       <span class="brand">
         <a href="">Cherish</a>
       </span>
+
+      <ng-container *ngIf="(isHandset$ | async) === false">
+        <span class="nav-item">
+          <a href="" routerLink="upload">Create an Entry</a>
+        </span>
+        <span class="nav-item">
+          <a href="" routerLink="stories">View the stories</a>
+        </span>
+        <span class="nav-item">
+          <a href="" (click)="openAboutDialog($event)">How this site works</a>
+        </span>
+      </ng-container>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
