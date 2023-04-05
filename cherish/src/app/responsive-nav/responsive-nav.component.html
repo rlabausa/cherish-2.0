@@ -5,9 +5,18 @@
       [opened]="false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="upload" (click)="drawer.close()">Create an Entry</a>
-      <a mat-list-item routerLink="stories" (click)="drawer.close()">View the stories</a>
-      <a mat-list-item (click)="openAboutDialog($event)">How this site works</a>
+      <a mat-list-item routerLink="upload" (click)="drawer.close()">
+        <mat-icon>post_add</mat-icon>
+        Create an Entry
+        </a>
+      <a mat-list-item routerLink="stories" (click)="drawer.close()">
+        <mat-icon>auto_stories</mat-icon>
+        View the stories
+      </a>
+      <a mat-list-item (click)="openAboutDialog($event)">
+        <mat-icon>help</mat-icon>
+        How this site works
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
