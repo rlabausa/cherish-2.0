@@ -20,7 +20,7 @@
   padding: 0.75rem;
   font-style: italic;
   font-size: larger;
-  
+
   a {
     text-decoration: none;
     color: #ffffff;
@@ -36,4 +36,10 @@ a {
   margin: 0.75rem;
   font-weight: lighter;
   font-size: medium;
+}
+
+a {
+  mat-icon {
+    vertical-align: middle !important;
+  }
 }
