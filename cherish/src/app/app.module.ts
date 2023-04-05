@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UploadComponent } from './upload/upload.component';
@@ -22,6 +24,8 @@ import { MapLocationDialogComponent } from './map-location-dialog/map-location-d
 import { PhotoInputComponent } from './photo-input/photo-input.component';
 import { CardComponent } from './card/card.component';
 import { StoriesComponent } from './stories/stories.component';
+import { ResponsiveNavComponent } from './responsive-nav/responsive-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { StoriesComponent } from './stories/stories.component';
     MapLocationDialogComponent,
     PhotoInputComponent,
     CardComponent,
-    StoriesComponent
+    StoriesComponent,
+    ResponsiveNavComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +52,12 @@ import { StoriesComponent } from './stories/stories.component';
     MatInputModule,
     MatDividerModule,
     MatCardModule,
+    MatListModule,
+    MatSidenavModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LayoutModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
